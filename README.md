@@ -1,9 +1,25 @@
-# Another look at inference after prediction
+# Another Look at Inference After Prediction
 
-Code and results for "Another look at inference after prediction" by Jessica Gronsbell, Jianhui Gao, Yaqi Shi, Zachary R. McCaw  and  David Cheng. See preprint here: (url for the arxiv)
+This repository contains the code and results for the paper *"Another Look at Inference After Prediction"* by Jessica Gronsbell, Jianhui Gao, Yaqi Shi, Zachary R. McCaw, and David Cheng. You can find the preprint here: [arXiv link](url for the arxiv).
 
-The code in this repository is based on the code in https://github.com/keshav-motwani/PredictionBasedInference. We thank Motwani and Witten (2023)  for making their code public, which enabled us to investigate the method further in this manuscript. The original script by Motwani and Witten (2023) is duplicated in this repository for easy comparison.
+## Overview
 
-The only difference from the simulation setup in Motwani and Witten (2023) is that we consider varying sample sizes, as well as consider using a fixed machine learning model (referred to as fixed_train throughout the code and results files). See the associated manuscript for details. 
+This paper revisits prediction-based (PB) inference methods, investigating their statistical efficiency and robustness under different modeling assumptions. We analyze and compare several approaches, including the prediction-powered inference (PPI) method from Angelopoulos et al. (2023a) and the Chen and Chen (2000) estimator, providing extensive theoretical and numerical evaluations.
 
+The repository includes:
+- Implementation of PB inference methods discussed in the paper.
+- Simulations and analyses used to generate the results in the manuscript.
+- Comparisons with baseline methods, including the original code from [Motwani and Witten (2023)](https://github.com/keshav-motwani/PredictionBasedInference).
+
+## Acknowledgments
+
+This repository builds on the code from [Motwani and Witten's PredictionBasedInference repository](https://github.com/keshav-motwani/PredictionBasedInference). We thank Motwani and Witten (2023) for publicly sharing their code, which allowed us to further investigate their method in this manuscript. For ease of comparison, the original scripts from Motwani and Witten (2023) are included in this repository.
+
+## Useful Examples
+
+(to be added with deomnstration and explantion for different scripts and results)
+
+## Contact
+
+For questions or issues, please contact [Yaqi Shi](mailto:yaqi.shi@mail.utoronto.com) or open an issue on this repository.
 
