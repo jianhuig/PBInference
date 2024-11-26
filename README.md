@@ -16,7 +16,22 @@ This repository builds on the code from [PredictionBasedInference](https://githu
 
 ## Useful Examples
 
-(to be added with deomnstration and explantion for different scripts and results)
+```r
+# Parameter Setup
+n_train <- 10000
+n_tot <- 10000
+n_tests <- 1000
+scnes <- c("1a")
+n_sim <- 1
+
+# Data Generation
+sim_dat <- data_gen(n_train, n_test, n_val, n_sim)
+
+# Calculate coefficient and SE
+ppi_df <- predpowinf(sim_dat, n_sim)
+ppi_full_df <- predpowinf_full(sim_dat, n_sim)
+cc_df <- chen_chen(sim_dat, n_sim)
+```
 
 ## Contact
 
