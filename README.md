@@ -13,7 +13,7 @@ The repository includes:
 
 ## Acknowledgments
 
-This repository builds on the code from [Motwani and Witten's PredictionBasedInference repository](https://github.com/keshav-motwani/PredictionBasedInference). We thank Motwani and Witten (2023) for publicly sharing their code, which allowed us to further investigate those methods in this manuscript. The original scripts from Motwani and Witten (2023) are duplicated in this repository.
+This repository builds on the code from [PredictionBasedInference](https://github.com/keshav-motwani/PredictionBasedInference) repository. We thank Motwani and Witten (2023) for publicly sharing their code, which allowed us to further investigate those methods in this manuscript. 
 
 ## Useful Examples
 
