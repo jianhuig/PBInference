@@ -1,0 +1,219 @@
+---
+title: "Simulation Results"
+output: pdf_document
+date: \today
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, warning=FALSE, echo=FALSE, message=FALSE}
+library(ggplot2)
+library(RColorBrewer)
+library(kableExtra)
+library(knitr)
+library(dplyr)
+library(tidyr)
+```
+
+
+# Read in the results
+
+```{r}
+output_tot <- c()
+n_tests <- c(1000, 2000, 3000, 4000, 5000)
+scenarios <- c("1a")
+n_sim <- c(1:2000)
+
+for (i in n_tests) {
+  for(j in scenarios) {
+    output <- readRDS(paste0("main_sim_power_n_test_", i,"_scenario_",j,".rds"))
+    output$n_sim <- n_sim
+    output_tot <- rbind(output_tot, output)
+  }
+}
+
+output_tot <- output_tot %>%
+  rename(n_lab = n_test, n_unlab = n_val)
+```
+
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+ci_classic <- output_tot %>%
+  filter(method == "observed") %>%
+  select(sce, n_lab, n_sim, cilength)
+
+output_tot <- output_tot %>%
+  left_join(ci_classic, by = c( "sce", "n_lab", "n_sim"))
+
+output_tot <- output_tot %>%
+  mutate(ciratio = cilength.x / cilength.y)
+
+ese_summary <- output_tot %>%
+  group_by(sce, method, n_lab) %>% 
+  summarize(ese = sd(estimate))
+
+output_tot <- output_tot %>%
+  left_join(ese_summary, by = c( "sce", "method", "n_lab"))
+
+true_beta_summary <- output_tot %>%
+  group_by(sce, method, n_lab) %>% 
+  summarize(true_beta_1 = mean(estimate)) %>%
+  filter(method == "val*")
+
+output_tot <- output_tot %>%
+  left_join(true_beta_summary, by = c( "sce", "n_lab")) %>%
+  select(-method.y) %>%
+  rename(method = method.x)
+
+output_tot_1 <- output_tot %>%
+  mutate(true_bias = estimate - true_beta_1,
+         mse = true_bias^2 + ese^2)
+
+result_summary <- output_tot_1 %>%
+  group_by(sce, n_lab, method) %>% 
+  summarize(est = mean(estimate),
+            bias = mean(true_bias),
+            ese = sd(estimate),
+            mse = mean(mse),
+            R2 = mean(R2),
+            ciratio = mean(ciratio),
+            count = n())
+
+method_mapping <- c(
+  "naive" = "Naive",
+  "observed" = "Classical",
+  "val*" = "Validation",
+  "predpowinf" = "PPI",
+  "predpowinf-full" = "PPIₐ",
+  "sur" = "SUR",
+  "chen-chen" = "CC",
+  "pspa" = "PSPA"
+)
+
+result_summary <- result_summary %>%
+  mutate(Method = recode(method, !!!method_mapping)) %>%
+  mutate(Method = factor(Method, levels = method_mapping)) %>%
+  select(-method) %>%
+  rename(Scenario = sce)
+
+result_summary_1 <- result_summary %>%
+  filter(Method %in% c("Naive", "Classical", "CC", "PPIₐ", "PPI"))
+```
+
+
+
+
+# CI length plot
+
+```{r, echo=FALSE, warning=FALSE}
+ci_summary <- result_summary_1 %>%
+  select(Scenario, n_lab, Method, ciratio)  %>%
+  filter(!(Method %in% c("Naive", "Classical")))
+
+selected_colors3 <- brewer.pal(n = 10, name = "RdYlBu")[c(7,8,10)]#8
+
+# Create the bar plot
+plot1 <- ggplot(ci_summary, aes(x = factor(n_lab), y = ciratio, fill = Method)) +
+  geom_bar(stat = "identity", position = "dodge", width = 0.8) +  
+  geom_hline(yintercept = 1, linetype = "dashed", color = "red", size = 0.75) +  
+  facet_wrap(~ Scenario, scales = "free_y", nrow = 2,
+             labeller = labeller(Scenario = function(s) paste0("Scenario ", s))) +  
+  labs(x = "Labeled Set Size ", y = "Confidence Interval Length Ratio") +
+  theme_bw()+
+  theme(legend.position = "bottom", 
+        axis.text.x = element_text(angle = 45, hjust = 1)) +  
+  scale_y_continuous(limits = c(0, 2), breaks = c(0,0.5, 1, 1.5, 2)) +
+  scale_fill_manual(values = selected_colors3)
+
+plot1
+
+```
+
+```{r, echo=FALSE, warning=FALSE}
+ggsave(filename = "ci_plot.png", plot = plot1, width = 7, height = 7, dpi = 300)
+```
+
+
+
+# Percentage Bias table
+
+```{r}
+result_summary_pctbias <- output_tot_1 %>%
+  group_by(sce, n_lab, method) %>% 
+  summarize(est = mean(estimate),
+            bias = mean(true_bias),
+            true = mean(true_beta_1),
+            count = n())
+
+result_summary_pctbias <- result_summary_pctbias %>%
+  mutate(Method = recode(method, !!!method_mapping)) %>%
+  mutate(Method = factor(Method, levels = method_mapping)) %>%
+  select(-method) %>%
+  rename(Scenario = sce)
+
+result_summary_pctbias_1 <- result_summary_pctbias %>%
+  filter(Method %in% c("Naive", "Classical", "CC", "PPIₐ", "PPI"))
+
+result_summary_pctbias_1 <- result_summary_pctbias_1 %>%
+  mutate(pct_bias = bias/true * 100)
+
+pct_bias_summary <- result_summary_pctbias_1 %>%
+  select(Scenario, n_lab, Method, pct_bias)
+
+pct_bias_summary_final <- pct_bias_summary %>%
+  mutate(pct_bias = round(pct_bias, 3)) %>%
+  select(Scenario, n_lab, Method, pct_bias) %>%
+  arrange(Scenario, n_lab, Method) %>%
+  pivot_wider(names_from = n_lab, values_from = pct_bias)
+  
+
+kable(pct_bias_summary_final[,-1], align = "lccccccc", booktabs = T, escape = FALSE, caption = paste0("Bias Table")) %>%
+  add_header_above(c( " ","Labeled set size" = 5)) %>%
+  kable_styling(position = "center") %>%
+  kable_styling(latex_options = "HOLD_position") %>%
+  pack_rows("Scenario 1a", 1,5) 
+
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
