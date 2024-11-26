@@ -9,7 +9,6 @@ This paper revisits prediction-based (PB) inference methods, investigating their
 The repository includes:
 - Implementation of PB inference methods discussed in the paper.
 - Simulations and analyses used to generate the results in the manuscript.
-- Comparisons with baseline methods, including the code from [Motwani and Witten (2023)](https://github.com/keshav-motwani/PredictionBasedInference).
 
 ## Acknowledgments
 
