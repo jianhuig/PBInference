@@ -1,6 +1,6 @@
 # Another Look at Inference After Prediction
 
-This repository contains the code and results for the paper *"Another Look at Inference After Prediction"* by Jessica Gronsbell, Yaqi Shi, Jianhui Gao, Zachary R. McCaw, and David Cheng. You can find the preprint here: [arXiv link](url for the arxiv).
+This repository contains the code and results for the paper *"Another Look at Inference After Prediction"* by Jessica Gronsbell,  Jianhui Gao, Yaqi Shi, Zachary R. McCaw, and David Cheng. You can find the preprint here: [arXiv link](url for the arxiv).
 
 ## Overview
 
