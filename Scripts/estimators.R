@@ -1,7 +1,7 @@
 
 # Implementation of the PPI method
 predpowinf <- function(sim_dat_tv, 
-                       n_sim) {
+                       n_sim = NA) {
   
   # Wang et al. (2020) refer to the labeled data set as \test" data, and to the unlabeled data as \validation" data.
   
@@ -106,7 +106,7 @@ predpowinf <- function(sim_dat_tv,
 
 # Implementation of PPI method using full data
 predpowinf_full <- function(sim_dat_tv, 
-                            n_sim) {
+                            n_sim = NA) {
   
   # Wang et al. (2020) refer to the labeled data set as \test" data, and to the unlabeled data as \validation" data.
   
@@ -207,7 +207,7 @@ predpowinf_full <- function(sim_dat_tv,
 
 
 # Implementation of naive and classic method with calculation for true beta
-truth_and_nc <- function(sim_dat_tv, n_sim) {
+truth_and_nc <- function(sim_dat_tv, n_sim = NA) {
   
   val_data <- filter(sim_dat_tv, set == "validation")
   observed_data <- filter(sim_dat_tv, set == "testing")
@@ -294,7 +294,7 @@ truth_and_nc <- function(sim_dat_tv, n_sim) {
 
 # Implementation of the Chen and Chen method
 chen_chen <- function(sim_dat_tv, 
-                      n_sim) {
+                      n_sim = NA) {
   
   # Identify the validation (unlabeled) and the testing (labeled) data
   labeled_data <- filter(sim_dat_tv, set == "testing")
@@ -357,7 +357,7 @@ chen_chen <- function(sim_dat_tv,
 
 # Implementation of the Seemingly Unrelated Regression (SUR) method
 sur <- function(sim_dat_tv, 
-                n_sim) {
+                n_sim = NA) {
   
   # Identify the validation (unlabeled) and the testing (labeled) data
   labeled_data <- filter(sim_dat_tv, set == "testing")
@@ -412,7 +412,7 @@ sur <- function(sim_dat_tv,
 
 # Implementation of the Chen and Chen method with modification of using unlabeled data
 chen_chen_unlab <- function(sim_dat_tv, 
-                            n_sim) {
+                            n_sim = NA) {
   
   # Identify the validation (unlabeled) and the testing (labeled) data
   labeled_data <- filter(sim_dat_tv, set == "testing")
@@ -477,7 +477,7 @@ chen_chen_unlab <- function(sim_dat_tv,
 
 # Implementation of the PSPA method
 pspa <- function(sim_dat_tv, 
-                 n_sim){
+                 n_sim = NA){
   
   # Data extraction
   X_lab <- sim_dat_tv %>% dplyr::filter(set == "testing") %>% pull(x1)

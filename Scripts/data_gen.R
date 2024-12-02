@@ -64,7 +64,9 @@ prediction_model <- function(train_data,
 data_gen <- function(n_train, 
                      n_test, 
                      n_val, 
-                     n_sim) {
+                     sce,
+                     n_cores = 1,
+                     n_sim = 1) {
   
   # Set up mu and sigma
   correlation <- 0.4

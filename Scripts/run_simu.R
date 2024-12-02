@@ -18,11 +18,11 @@ source("estimators.R")
 # ------------------------ Simulation Setup ------------------------ #
 
 # Set up parameter
-n_sim <- 2000
+n_sim <- 10
 n_train <- 10000
 n_tot <- 10000
 n_tests <- c(1000, 2000, 3000, 4000, 5000)
-n_cores <- detectCores()
+n_cores <- 1
 scnes <- c("1a")
 
 # Set seed for simulations
@@ -30,14 +30,11 @@ set.seed(2023)
 
 # Results names
 methods <- c("naive", "val*", "observed", 
-             "predpowinf", "predpowinf-full", 
-             "chen-chen", "sur", "chen-chen-unlab", "pspa")
+             "predpowinf", "predpowinf-full", "chen-chen")
 beta_names <- c("nc_beta", "truth_beta", "observed_beta", 
-                "ppi_beta", "ppi_full_beta", 
-                "cc_beta", "sur_beta", "cc_unlab_beta", "pspa_beta")
+                "ppi_beta", "ppi_full_beta", "cc_beta")
 se_names <- c("nc_sd", "truth_sd", "observed_sd", 
-              "ppi_se", "ppi_full_se", 
-              "cc_se", "sur_se", "cc_unlab_se", "pspa_se")
+              "ppi_se", "ppi_full_se", "cc_se")
 
 
 # ------------------------ Run Simulation ------------------------ #
@@ -53,7 +50,7 @@ for (i in 1:length(scnes)) {
     n_val <- n_tot - n_test
     
     # Data generation
-    sim_dat_tv_tot <- data_gen(n_train, n_test, n_val, n_sim)
+    sim_dat_tv_tot <- data_gen(n_train, n_test, n_val, sce, n_cores, n_sim)
     
     # Run simulations
     sim_function <- function(k, sim_dat_tv_tot) {
@@ -65,10 +62,7 @@ for (i in 1:length(scnes)) {
         truth_nc_df = truth_and_nc(sim_dat_tv, k),
         ppi_df = predpowinf(sim_dat_tv, k),
         ppi_full_df = predpowinf_full(sim_dat_tv, k),
-        cc_df = chen_chen(sim_dat_tv, k),
-        sur_df = sur(sim_dat_tv, k),
-        cc_unlab_df = chen_chen_unlab(sim_dat_tv, k),
-        pspa_df = pspa(sim_dat_tv, k)
+        cc_df = chen_chen(sim_dat_tv, k)
       )
     }
     
@@ -81,12 +75,8 @@ for (i in 1:length(scnes)) {
     ppi_df <- do.call(rbind, lapply(results, `[[`, "ppi_df"))
     ppi_full_df <- do.call(rbind, lapply(results, `[[`, "ppi_full_df"))
     cc_df <- do.call(rbind, lapply(results, `[[`, "cc_df"))
-    sur_df <- do.call(rbind, lapply(results, `[[`, "sur_df"))
-    cc_unlab_df <- do.call(rbind, lapply(results, `[[`, "cc_unlab_df"))
-    pspa_df <- do.call(rbind, lapply(results, `[[`, "pspa_df"))
     
-    
-    df <- cbind(truth_nc_df, ppi_df, ppi_full_df, cc_df, sur_df, cc_unlab_df, pspa_df, R2)
+    df <- cbind(truth_nc_df, ppi_df, ppi_full_df, cc_df, R2)
     
     estimates <- df[, beta_names]
     colnames(estimates) <- methods
