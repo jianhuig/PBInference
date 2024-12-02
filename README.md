@@ -38,13 +38,13 @@ n_val <- 9000
 # Scenario details are described in the paper
 scenario <- "1a"
 
-# Set the random seed for reproducibility
+# Set seed
 set.seed(2025)
 
 # Generate data
 sim_dat <- data_gen(n_train, n_test, n_val, scenario)
 
-# Calculate coefficients and standard errors
+# Calculate coefficient and standard errors
 ppi <- predpowinf(sim_dat)[2:3]
 ppi_full <- predpowinf_full(sim_dat)[2:3]
 cc <- chen_chen(sim_dat)[2:3]
