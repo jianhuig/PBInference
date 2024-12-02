@@ -92,12 +92,7 @@ predpowinf <- function(sim_dat_tv,
   df <- data.frame(
     sim = n_sim,
     ppi_beta = theta_hat_pp[2],
-    ppi_se = se,
-    ppi_cov = ppi_cov,
-    ppi_cov_adj = ppi_cov_adj,
-    ppi_vbeta = ppi_vbeta,
-    ppi_vgammalab = ppi_vgammalab,
-    ppi_vgammaunlab = ppi_vgammaunlab
+    ppi_se = se
   )
   
   return(df)
@@ -194,12 +189,7 @@ predpowinf_full <- function(sim_dat_tv,
   df <- data.frame(
     sim = n_sim,
     ppi_full_beta = theta_hat_pp[2],
-    ppi_full_se = se,
-    ppi_full_cov = ppi_full_cov,
-    ppi_full_cov_adj = ppi_full_cov_adj,
-    ppi_full_vbeta = ppi_full_vbeta,
-    ppi_full_vgammalab = ppi_full_vgammalab,
-    ppi_full_vgammaall = ppi_full_vgammaall
+    ppi_full_se = se
   )
   
   return(df)
@@ -475,6 +465,7 @@ chen_chen_unlab <- function(sim_dat_tv,
 }
 
 
+
 # Implementation of the PSPA method
 pspa <- function(sim_dat_tv, 
                  n_sim = NA){
@@ -488,7 +479,7 @@ pspa <- function(sim_dat_tv,
   Yhat_lab <- sim_dat_tv %>% dplyr::filter(set == "testing") %>% pull(pred)
   Yhat_unlab <- sim_dat_tv %>% dplyr::filter(set == "validation") %>% pull(pred)
   
-  pspa_df <- pspa_y(X_lab, X_unlab, Y_lab, Yhat_lab, Yhat_unlab, alpha = 0.05, method = "ols")[2, 1:2]
+  pspa_df <- pspa::pspa_y(X_lab, X_unlab, Y_lab, Yhat_lab, Yhat_unlab, alpha = 0.05, method = "ols")[2, 1:2]
   
   # results
   df <- data.frame(

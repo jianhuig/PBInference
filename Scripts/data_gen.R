@@ -36,23 +36,23 @@ prediction_model <- function(train_data,
   
   if (sce == "1a") {
     
-    pred_model <- gam(y ~ x1 + x2 + x3 + x4 + x5 + x6 + x7 + x8 + x9 + x10 + x11, data = train_data)
+    pred_model <- lm(y ~ x1 + x2 + x3 + x4 + x5 + x6 + x7 + x8 + x9 + x10 + x11, data = train_data)
     
   } else if (sce == "1b") {
     
-    pred_model <- gam(y ~ x1 + X6 + x1 * x6, data = train_data)
+    pred_model <- lm(y ~ x1 + X6 + x1 * x6, data = train_data)
     
   } else if (sce == "2a") {
     
-    pred_model <- gam(y ~ x2 + x3 + x4 + x5 + x6 + x7 + x8 + x9 + x10, data = train_data)
+    pred_model <- lm(y ~ x2 + x3 + x4 + x5 + x6 + x7 + x8 + x9 + x10, data = train_data)
     
   } else if (sce == "2b") {
     
-    pred_model <- gam(y ~ x2 + x3 + x4 + x2 * x3 + x2 * x4 + x3 * x4, data = train_data)
+    pred_model <- lm(y ~ x2 + x3 + x4 + x2 * x3 + x2 * x4 + x3 * x4, data = train_data)
     
   } else {
     
-    pred_model <- gam(y ~ x1, data = train_data)
+    pred_model <- lm(y ~ x1, data = train_data)
     print("Scenario DNE")
     
   }
