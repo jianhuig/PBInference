@@ -4,7 +4,7 @@ This repository contains the code and results for the paper *"Another Look at In
 
 ## Overview
 
-This paper revisits prediction-based (PB) inference methods, investigating their statistical efficiency and robustness under different situations. We analyze and compare several approaches, including the prediction-powered inference (PPI) method from Angelopoulos et al. (2023a) and the Chen and Chen (2000) estimator, providing both theoretical and numerical evaluations.
+This paper revisits prediction-based (PB) inference methods and investigates their statistical efficiency. We analyze and compare several approaches, including the prediction-powered inference (PPI) method from Angelopoulos et al. (2023a) and the Chen and Chen (2000) estimator with theoretical and numerical evaluations.
 
 The repository includes:
 - Implementation of PB inference methods discussed in the paper.
@@ -12,7 +12,7 @@ The repository includes:
 
 ## Acknowledgments
 
-This repository builds on the code from [PredictionBasedInference](https://github.com/keshav-motwani/PredictionBasedInference) repository. We thank Motwani and Witten (2023) for publicly sharing their code, which allowed us to further investigate those methods in this manuscript. 
+This repository builds on the code from [PredictionBasedInference](https://github.com/keshav-motwani/PredictionBasedInference) repository. We thank [Motwani and Witten (2023)](https://www.jmlr.org/papers/volume24/23-0896/23-0896.pdf) for publicly sharing their code, which allowed us to further investigate those methods in this manuscript. 
 
 ## Useful Examples
 
