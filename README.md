@@ -10,6 +10,8 @@ The repository includes:
 - Implementation of PB inference methods discussed in the paper.
 - Simulations and analyses used to generate the results in the paper.
 
+To run the simulations, the required packages include dplyr, broom, and parallel.
+
 ## Acknowledgments
 
 This repository builds on the code from [PredictionBasedInference](https://github.com/keshav-motwani/PredictionBasedInference) repository. We thank [Motwani and Witten (2023)](https://www.jmlr.org/papers/volume24/23-0896/23-0896.pdf) for publicly sharing their code, which allowed us to further investigate those methods in this manuscript. 
@@ -23,7 +25,7 @@ setwd('~/PBInference/Scripts')
 
 # Load dependencies
 library(dplyr)
-library(gam)
+library(broom)
 library(parallel)
 
 # Load functions
@@ -45,9 +47,9 @@ set.seed(2025)
 sim_dat <- data_gen(n_train, n_test, n_val, scenario)
 
 # Calculate coefficient and standard errors
-ppi <- predpowinf(sim_dat)[2:3]
-ppi_full <- predpowinf_full(sim_dat)[2:3]
-cc <- chen_chen(sim_dat)[2:3]
+ppi <- predpowinf(sim_dat)[, c("ppi_beta", "ppi_se")]
+ppi_full <- predpowinf_full(sim_dat)[, c("ppi_full_beta", "ppi_full_se")]
+cc <- chen_chen(sim_dat)[, c("cc_beta", "cc_se")]
 ```
 
 ### Results
