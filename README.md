@@ -14,6 +14,52 @@ The repository includes:
 
 This repository builds on the code from [PredictionBasedInference](https://github.com/keshav-motwani/PredictionBasedInference) repository. We thank [Motwani and Witten (2023)](https://www.jmlr.org/papers/volume24/23-0896/23-0896.pdf) for publicly sharing their code, which allowed us to further investigate those methods in this manuscript. 
 
+## Example
+
+``` r
+# Set the working directory
+# Update this path based on your local setup
+setwd('~/PBInference/Scripts')
+
+# Load dependencies
+library(dplyr)
+library(gam)
+library(parallel)
+
+# Load functions
+source('estimators.R')
+source('data_gen.R')
+
+# Set up parameters
+n_train <- 10000
+n_test <- 1000
+n_val <- 9000
+
+# Scenario details are described in the paper
+scenario <- "1a"
+
+# Set the random seed for reproducibility
+set.seed(2025)
+
+# Generate data
+sim_dat <- data_gen(n_train, n_test, n_val, scenario)
+
+# Calculate coefficients and standard errors
+ppi <- predpowinf(sim_dat)[2:3]
+ppi_full <- predpowinf_full(sim_dat)[2:3]
+cc <- chen_chen(sim_dat)[2:3]
+```
+
+### Results
+
+| Method         | Estimate | Standard Error |
+|----------------|----------|----------------|
+| $\text{PPI}$   | 2.346244 | 0.03989220     |
+| $\text{PPI}_a$ | 2.354460 | 0.03929328     |
+| $\text{CC}$    | 2.354395 | 0.03929419     |
+
+
+
 ## Contact
 
 For questions or issues, please contact [Yaqi Shi](mailto:yaqi.shi@mail.utoronto.com) or open an issue on this repository.
