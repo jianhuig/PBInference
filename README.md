@@ -12,11 +12,7 @@ The repository includes:
 
 To run the simulations, the required packages include dplyr, broom, and parallel.
 
-## Acknowledgments
-
-This repository builds on the code from [PredictionBasedInference](https://github.com/keshav-motwani/PredictionBasedInference) repository. We thank [Motwani and Witten (2023)](https://www.jmlr.org/papers/volume24/23-0896/23-0896.pdf) for publicly sharing their code, which allowed us to further investigate those methods in this manuscript. 
-
-## Example
+## Simple Example
 
 ``` r
 # Set the working directory
@@ -52,7 +48,9 @@ ppi_full <- predpowinf_full(sim_dat)[, c("ppi_full_beta", "ppi_full_se")]
 cc <- chen_chen(sim_dat)[, c("cc_beta", "cc_se")]
 ```
 
+# Acknowledgments
 
+This repository builds on the code from [PredictionBasedInference](https://github.com/keshav-motwani/PredictionBasedInference) repository. We thank [Motwani and Witten (2023)](https://www.jmlr.org/papers/volume24/23-0896/23-0896.pdf) for publicly sharing their code, which allowed us to further investigate those methods in this manuscript. 
 
 
 ## Contact
