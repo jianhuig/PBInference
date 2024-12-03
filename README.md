@@ -52,13 +52,6 @@ ppi_full <- predpowinf_full(sim_dat)[, c("ppi_full_beta", "ppi_full_se")]
 cc <- chen_chen(sim_dat)[, c("cc_beta", "cc_se")]
 ```
 
-### Results
-
-| Method         | Estimate | Standard Error |
-|----------------|----------|----------------|
-| $\text{PPI}$   | 2.346244 | 0.03989220     |
-| $\text{PPI}_a$ | 2.354460 | 0.03929328     |
-| $\text{CC}$    | 2.354395 | 0.03929419     |
 
 
 
