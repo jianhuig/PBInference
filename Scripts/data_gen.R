@@ -69,8 +69,8 @@ data_gen <- function(n_train,
                      n_sim = 1) {
   
   # Set up mu and sigma
-  correlation <- 0.4
-  sigma <- matrix(correlation, nrow = 11, ncol = 11)
+  covariance <- 0.4
+  sigma <- matrix(covariance, nrow = 11, ncol = 11)
   diag(sigma) <- 1
   mu <- rep(0, 11)
   
