@@ -49,5 +49,5 @@ chen_chen <- function(Y, Xlab, flab, fall, Xall) {
   se_beta <- sqrt(diag(Omega))
 
   # Return results for the specific coefficient of interest
-  return(c(estimate = theta_hat["g"], se = se_beta["g"]))
+  return(c(estimate = theta_hat["g",], se = se_beta["g"]))
 }
