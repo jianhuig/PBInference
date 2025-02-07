@@ -4,7 +4,7 @@ This repository contains the code and results for the paper *"Another Look at In
 
 ## Overview
 
-Our paper investigates the statistical efficiency of prediction-based (PB) inference methods. We analyze and compare several PB inference approaches, including the prediction-powered inference (PPI) method from Angelopoulos et al. (2023a) and the Chen and Chen (2000) estimator with theoretical and numerical evaluations.
+Our paper investigates the statistical efficiency of prediction-based (PB) inference methods. We analyze and compare several PB inference approaches, including the prediction-powered inference (PPI) method from [Angelopoulos et al. (2023)](https://www.science.org/doi/10.1126/science.adi6000) and the [Chen and Chen (2000)](https://www.jstor.org/stable/2680690) estimator with theoretical and numerical evaluations.
 
 The repository includes:
 - Implementation of PB inference methods discussed in the paper.
