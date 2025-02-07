@@ -9,6 +9,7 @@ Our paper investigates the statistical efficiency of prediction-based (PB) infer
 The repository includes:
 - Implementation of PB inference methods discussed in the paper.
 - Simulations and analyses used to generate the results in the paper.
+- Code for reproduce our UK Biobank Analysis, but access to UK Biobank is required as the data cannot be released.
 
 To run the simulations, the required packages include dplyr, broom, and parallel.
 
